@@ -157,7 +157,7 @@ export const runTests = action({
 					versionId: state.currentVersionId,
 					systemPrompt: state.promptText,
 					userMessage: testCase.question,
-					model: "gpt-4o-mini",
+					model: "anthropic/claude-sonnet-4",
 				});
 
 				const score = calculateSimilarity(response, testCase.approvedResponse);

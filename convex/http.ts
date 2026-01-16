@@ -285,7 +285,7 @@ http.route({
 				versionId: prompt.versionId,
 				systemPrompt: prompt.promptText,
 				userMessage,
-				model: body.model ?? "gpt-4o-mini",
+				model: body.model ?? "anthropic/claude-sonnet-4",
 			});
 
 			const latencyMs = Date.now() - startTime;
@@ -303,7 +303,7 @@ http.route({
 					id: `chatcmpl-${Date.now()}`,
 					object: "chat.completion",
 					created: Math.floor(Date.now() / 1000),
-					model: body.model ?? "gpt-4o-mini",
+					model: body.model ?? "anthropic/claude-sonnet-4",
 					choices: [
 						{
 							index: 0,

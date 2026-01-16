@@ -322,9 +322,9 @@ export const generateStarterPrompt = internalAction({
 	},
 	returns: v.null(),
 	handler: async (ctx, args): Promise<null> => {
-		const apiKey = process.env.OPENAI_API_KEY;
+		const apiKey = process.env.OPENROUTER_API_KEY;
 		if (!apiKey) {
-			console.error("OPENAI_API_KEY not configured");
+			console.error("OPENROUTER_API_KEY not configured");
 			return null;
 		}
 
@@ -344,21 +344,26 @@ Context: ${args.context}
 
 Generate a system prompt for an AI assistant that will help achieve this goal within this context.`;
 
-		const response = await fetch("https://api.openai.com/v1/chat/completions", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				Authorization: `Bearer ${apiKey}`,
+		const response = await fetch(
+			"https://openrouter.ai/api/v1/chat/completions",
+			{
+				method: "POST",
+				headers: {
+					Authorization: `Bearer ${apiKey}`,
+					"Content-Type": "application/json",
+					"HTTP-Referer": "https://sysprompt.app",
+					"X-Title": "SysPrompt",
+				},
+				body: JSON.stringify({
+					model: "anthropic/claude-sonnet-4",
+					messages: [
+						{ role: "system", content: systemPrompt },
+						{ role: "user", content: userMessage },
+					],
+					temperature: 0.7,
+				}),
 			},
-			body: JSON.stringify({
-				model: "gpt-4o-mini",
-				messages: [
-					{ role: "system", content: systemPrompt },
-					{ role: "user", content: userMessage },
-				],
-				temperature: 0.7,
-			}),
-		});
+		);
 
 		if (!response.ok) {
 			console.error("Failed to generate starter prompt:", response.statusText);

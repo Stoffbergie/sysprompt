@@ -8,29 +8,34 @@ async function callLLM(
 	systemPrompt: string,
 	userMessage: string,
 ): Promise<string> {
-	const apiKey = process.env.OPENAI_API_KEY;
+	const apiKey = process.env.OPENROUTER_API_KEY;
 	if (!apiKey) {
-		return "Error: OPENAI_API_KEY not configured. Please add it to your Convex environment variables.";
+		return "Error: OPENROUTER_API_KEY not configured. Please add it to your Convex environment variables.";
 	}
 
-	const response = await fetch("https://api.openai.com/v1/chat/completions", {
-		method: "POST",
-		headers: {
-			Authorization: `Bearer ${apiKey}`,
-			"Content-Type": "application/json",
+	const response = await fetch(
+		"https://openrouter.ai/api/v1/chat/completions",
+		{
+			method: "POST",
+			headers: {
+				Authorization: `Bearer ${apiKey}`,
+				"Content-Type": "application/json",
+				"HTTP-Referer": "https://sysprompt.app",
+				"X-Title": "SysPrompt",
+			},
+			body: JSON.stringify({
+				model: "anthropic/claude-sonnet-4",
+				messages: [
+					{
+						role: "system",
+						content: systemPrompt || "You are a helpful assistant.",
+					},
+					{ role: "user", content: userMessage },
+				],
+				max_tokens: 2000,
+			}),
 		},
-		body: JSON.stringify({
-			model: "gpt-4o-mini",
-			messages: [
-				{
-					role: "system",
-					content: systemPrompt || "You are a helpful assistant.",
-				},
-				{ role: "user", content: userMessage },
-			],
-			max_tokens: 2000,
-		}),
-	});
+	);
 
 	if (!response.ok) {
 		const error = await response.text();
