@@ -5,6 +5,12 @@ import { httpAction } from "./_generated/server";
 
 const http = httpRouter();
 
+const corsHeaders = {
+	"Access-Control-Allow-Origin": "*",
+	"Access-Control-Allow-Methods": "POST, OPTIONS",
+	"Access-Control-Allow-Headers": "Content-Type, Authorization",
+};
+
 function buildSystemPrompt(
 	basePrompt: string,
 	hardRules: Array<{ type: string; value: string; scope: string }>,
@@ -65,6 +71,14 @@ function buildSystemPrompt(
 
 http.route({
 	path: "/api/stream/generate",
+	method: "OPTIONS",
+	handler: httpAction(async () => {
+		return new Response(null, { status: 204, headers: corsHeaders });
+	}),
+});
+
+http.route({
+	path: "/api/stream/generate",
 	method: "POST",
 	handler: httpAction(async (ctx, request) => {
 		let body: { streamId: Id<"streams"> };
@@ -74,7 +88,7 @@ http.route({
 		} catch {
 			return new Response(JSON.stringify({ error: "Invalid JSON body" }), {
 				status: 400,
-				headers: { "Content-Type": "application/json" },
+				headers: { "Content-Type": "application/json", ...corsHeaders },
 			});
 		}
 
@@ -86,11 +100,11 @@ http.route({
 		if (!streamContext) {
 			return new Response(JSON.stringify({ error: "Stream not found" }), {
 				status: 404,
-				headers: { "Content-Type": "application/json" },
+				headers: { "Content-Type": "application/json", ...corsHeaders },
 			});
 		}
 		if (streamContext.status !== "pending") {
-			return new Response(null, { status: 205 });
+			return new Response(null, { status: 205, headers: corsHeaders });
 		}
 
 		const { promptId, question, modifier, feedback } = streamContext;
@@ -116,7 +130,7 @@ http.route({
 			});
 			return new Response(
 				JSON.stringify({ error: "OPENROUTER_API_KEY not configured" }),
-				{ status: 500, headers: { "Content-Type": "application/json" } },
+				{ status: 500, headers: { "Content-Type": "application/json", ...corsHeaders } },
 			);
 		}
 
@@ -152,7 +166,7 @@ http.route({
 			});
 			return new Response(JSON.stringify({ error: "Failed to call LLM" }), {
 				status: 500,
-				headers: { "Content-Type": "application/json" },
+				headers: { "Content-Type": "application/json", ...corsHeaders },
 			});
 		}
 
@@ -216,6 +230,7 @@ http.route({
 				"Transfer-Encoding": "chunked",
 				"Cache-Control": "no-cache",
 				Connection: "keep-alive",
+				...corsHeaders,
 			},
 		});
 	}),
