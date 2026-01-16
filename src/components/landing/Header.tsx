@@ -74,7 +74,7 @@ export function Header() {
 							<Link to="/dashboard">
 								<button
 									type="button"
-									className="flex items-center gap-2 rounded-md bg-violet-600 hover:bg-violet-700 px-3 py-1.5 text-sm font-medium text-white transition-colors"
+									className="flex items-center gap-2 rounded-md bg-primary hover:bg-primary/90 px-3 py-1.5 text-sm font-medium text-white transition-colors"
 								>
 									<LayoutDashboard className="h-4 w-4" />
 									Dashboard
@@ -94,7 +94,7 @@ export function Header() {
 							<button
 								type="button"
 								onClick={() => signIn()}
-								className="rounded-md bg-violet-600 hover:bg-violet-700 px-3 py-1.5 text-sm font-medium text-white transition-colors"
+								className="rounded-md bg-primary hover:bg-primary/90 px-3 py-1.5 text-sm font-medium text-white transition-colors"
 							>
 								Get Started
 							</button>
@@ -166,7 +166,7 @@ export function Header() {
 											to="/dashboard"
 											onClick={() => setMobileMenuOpen(false)}
 										>
-											<div className="flex items-center justify-center gap-2 rounded-md bg-violet-600 py-2.5 text-sm font-medium text-white">
+											<div className="flex items-center justify-center gap-2 rounded-md bg-primary py-2.5 text-sm font-medium text-white">
 												<LayoutDashboard className="h-4 w-4" />
 												Dashboard
 											</div>
@@ -179,7 +179,7 @@ export function Header() {
 											signIn();
 											setMobileMenuOpen(false);
 										}}
-										className="rounded-md bg-violet-600 py-2.5 text-sm font-medium text-white"
+										className="rounded-md bg-primary py-2.5 text-sm font-medium text-white"
 									>
 										Get Started
 									</button>

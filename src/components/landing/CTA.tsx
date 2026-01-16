@@ -1,12 +1,11 @@
 import { motion } from "framer-motion";
-import { Github } from "lucide-react";
 import { useAppAuth } from "@/shared";
 
 export function CTA() {
 	const { signIn } = useAppAuth();
 
 	return (
-		<section className="relative py-24 px-6 bg-violet-600 overflow-hidden">
+		<section className="relative py-24 px-6 bg-primary overflow-hidden">
 			{/* Grid pattern */}
 			<div
 				className="absolute inset-0"
@@ -25,7 +24,7 @@ export function CTA() {
 					transition={{ duration: 0.5 }}
 					className="text-4xl font-bold text-white md:text-5xl"
 				>
-					Ready to Ship Faster?
+					Ready to Build Better Prompts?
 				</motion.h2>
 
 				{/* Description */}
@@ -36,8 +35,8 @@ export function CTA() {
 					transition={{ duration: 0.5, delay: 0.1 }}
 					className="mt-6 text-lg text-white/80 max-w-2xl mx-auto"
 				>
-					Clone the repo. Start building. Ship something real with a
-					production-ready stack. No excuses.
+					Stop writing specifications. Start expressing taste.
+					Transform your prompt engineering workflow today.
 				</motion.p>
 
 				{/* CTA Buttons */}
@@ -51,19 +50,16 @@ export function CTA() {
 					<button
 						type="button"
 						onClick={() => signIn()}
-						className="inline-flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm font-medium text-violet-600 hover:bg-white/90 transition-colors"
+						className="inline-flex items-center gap-2 rounded-md bg-white px-4 py-2 text-sm font-medium text-primary hover:bg-white/90 transition-colors"
 					>
-						Get Started
+						Start Building
 					</button>
 
 					<a
-						href="https://github.com/Stoffberg/project-zap"
-						target="_blank"
-						rel="noopener noreferrer"
+						href="#features"
 						className="inline-flex items-center gap-2 rounded-md border border-white/30 bg-white/10 px-4 py-2 text-sm font-medium text-white hover:bg-white/20 transition-colors"
 					>
-						<Github className="h-4 w-4" />
-						View on GitHub
+						Learn More
 					</a>
 				</motion.div>
 			</div>

@@ -1,2 +1,2 @@
 export { AppShell } from "./layouts";
-export { DashboardPage, TodosPage } from "./pages";
+export { DashboardPage, PromptsPage, TodosPage, TuningPage } from "./pages";

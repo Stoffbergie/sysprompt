@@ -19,8 +19,8 @@ const variantStyles = {
 		iconColor: "text-muted-foreground",
 	},
 	primary: {
-		iconBg: "bg-violet-100 dark:bg-violet-500/20",
-		iconColor: "text-violet-600 dark:text-violet-400",
+		iconBg: "bg-primary/10",
+		iconColor: "text-primary",
 	},
 	success: {
 		iconBg: "bg-emerald-100 dark:bg-emerald-500/20",

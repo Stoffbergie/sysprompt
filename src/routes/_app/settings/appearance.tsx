@@ -74,7 +74,7 @@ function AppearanceSettingsPage() {
 			preview: {
 				bg: "bg-white",
 				sidebar: "bg-slate-100",
-				accent: "bg-violet-500",
+				accent: "bg-primary",
 			},
 		},
 		{
@@ -85,7 +85,7 @@ function AppearanceSettingsPage() {
 			preview: {
 				bg: "bg-slate-900",
 				sidebar: "bg-slate-800",
-				accent: "bg-violet-500",
+				accent: "bg-primary",
 			},
 		},
 		{
@@ -96,7 +96,7 @@ function AppearanceSettingsPage() {
 			preview: {
 				bg: "bg-gradient-to-br from-white to-slate-900",
 				sidebar: "bg-gradient-to-br from-slate-100 to-slate-800",
-				accent: "bg-violet-500",
+				accent: "bg-primary",
 			},
 		},
 	];

@@ -33,20 +33,20 @@ export function DashboardPage() {
 	return (
 		<div className="flex flex-col">
 			{/* Mobile Welcome Header */}
-			<div className="bg-gradient-to-br from-violet-600 to-violet-700 px-4 py-6 text-white">
-				<p className="text-sm font-medium text-white/80">Welcome back</p>
+			<div className="bg-gradient-to-br from-primary to-primary/90 px-4 py-6 text-primary-foreground">
+				<p className="text-sm font-medium text-primary-foreground/80">Welcome back</p>
 				<h1 className="mt-1 text-2xl font-bold">{firstName}</h1>
 				{pending > 0 ? (
-					<p className="mt-2 text-sm text-white/90">
+					<p className="mt-2 text-sm text-primary-foreground/90">
 						You have {pending} pending {pending === 1 ? "task" : "tasks"}
 					</p>
 				) : total > 0 ? (
-					<p className="mt-2 flex items-center gap-1.5 text-sm text-white/90">
+					<p className="mt-2 flex items-center gap-1.5 text-sm text-primary-foreground/90">
 						<Sparkles className="h-4 w-4" />
 						All caught up!
 					</p>
 				) : (
-					<p className="mt-2 text-sm text-white/90">
+					<p className="mt-2 text-sm text-primary-foreground/90">
 						Create your first task to get started
 					</p>
 				)}
@@ -142,10 +142,10 @@ export function DashboardPage() {
 function DashboardSkeleton() {
 	return (
 		<div className="flex flex-col">
-			<div className="bg-violet-600 px-4 py-6">
-				<Skeleton className="h-4 w-24 bg-white/20" />
-				<Skeleton className="mt-2 h-8 w-32 bg-white/20" />
-				<Skeleton className="mt-2 h-4 w-48 bg-white/20" />
+			<div className="bg-primary px-4 py-6">
+				<Skeleton className="h-4 w-24 bg-primary-foreground/20" />
+				<Skeleton className="mt-2 h-8 w-32 bg-primary-foreground/20" />
+				<Skeleton className="mt-2 h-4 w-48 bg-primary-foreground/20" />
 			</div>
 			<div className="border-b px-4 py-4">
 				<Skeleton className="h-2 w-full" />

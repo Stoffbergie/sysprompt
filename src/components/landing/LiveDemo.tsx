@@ -19,7 +19,7 @@ export function LiveDemo() {
 						initial={{ opacity: 0, scale: 0.9 }}
 						whileInView={{ opacity: 1, scale: 1 }}
 						viewport={{ once: true }}
-						className="inline-flex items-center gap-2 text-sm font-semibold text-violet-600 mb-4"
+						className="inline-flex items-center gap-2 text-sm font-semibold text-primary mb-4"
 					>
 						<Radio className="h-4 w-4" />
 						LIVE DEMO
@@ -55,7 +55,7 @@ export function LiveDemo() {
 							</div>
 							<pre className="p-4 text-sm overflow-x-auto">
 								<code className="text-muted-foreground">
-									<span className="text-violet-500">
+									<span className="text-accent">
 										{"// Define your schema"}
 									</span>
 									{"\n"}
@@ -76,7 +76,7 @@ export function LiveDemo() {
 									{"(),\n"}
 									{"  }),\n"}
 									{"});\n\n"}
-									<span className="text-violet-500">
+									<span className="text-accent">
 										{"// Query - auto-updates in real-time"}
 									</span>
 									{"\n"}
@@ -84,7 +84,7 @@ export function LiveDemo() {
 									{" cells = "}
 									<span className="text-amber-500">useQuery</span>
 									{"(api.grid.get);\n\n"}
-									<span className="text-violet-500">
+									<span className="text-accent">
 										{"// Mutation - syncs to all clients"}
 									</span>
 									{"\n"}
@@ -92,7 +92,7 @@ export function LiveDemo() {
 									{" toggle = "}
 									<span className="text-amber-500">useMutation</span>
 									{"(api.grid.toggle);\n\n"}
-									<span className="text-violet-500">{"// Use it"}</span>
+									<span className="text-accent">{"// Use it"}</span>
 									{"\n"}
 									{"<"}
 									<span className="text-emerald-500">button</span>{" "}
@@ -156,7 +156,7 @@ export function LiveDemo() {
 							className="text-center"
 						>
 							<div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-md bg-muted">
-								<feature.icon className="h-6 w-6 text-violet-600" />
+								<feature.icon className="h-6 w-6 text-primary" />
 							</div>
 							<h3 className="font-bold text-foreground mb-1">
 								{feature.title}
@@ -265,7 +265,7 @@ function CheckboxGridDemo() {
 			<div className="relative">
 				{isLoading && (
 					<div className="absolute inset-0 flex items-center justify-center bg-card/80 z-10">
-						<div className="h-6 w-6 animate-spin rounded-full border-2 border-violet-600 border-t-transparent" />
+						<div className="h-6 w-6 animate-spin rounded-full border-2 border-primary border-t-transparent" />
 					</div>
 				)}
 
@@ -286,8 +286,8 @@ function CheckboxGridDemo() {
 								whileTap={{ scale: 0.95 }}
 								className={`aspect-square rounded-md border-2 transition-colors ${
 									isChecked
-										? "border-violet-600 bg-violet-600"
-										: "border-border bg-muted hover:border-violet-400"
+										? "border-primary bg-primary"
+										: "border-border bg-muted hover:border-primary/50"
 								}`}
 							/>
 						);

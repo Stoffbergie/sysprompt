@@ -71,7 +71,7 @@ export function DashboardPreview() {
 						className={`mt-1 text-xs ${
 							stat.changeType === "positive"
 								? "text-emerald-600"
-								: "text-violet-600"
+								: "text-primary"
 						}`}
 					>
 						{stat.changeType === "positive" && (
@@ -117,7 +117,7 @@ export function DashboardPreview() {
 								duration: 0.5,
 								ease: "easeOut",
 							}}
-							className="flex-1 rounded-t-sm bg-violet-600"
+							className="flex-1 rounded-t-sm bg-primary"
 						/>
 					))}
 				</div>
@@ -142,7 +142,7 @@ export function DashboardPreview() {
 					</span>
 					<button
 						type="button"
-						className="text-xs text-violet-600 hover:text-violet-700 font-medium"
+						className="text-xs text-primary hover:text-primary/80 font-medium"
 					>
 						View all
 					</button>

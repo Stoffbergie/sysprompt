@@ -11,7 +11,7 @@ export function WelcomeHeader({ name, subtitle }: WelcomeHeaderProps) {
 		hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 
 	return (
-		<div className="relative overflow-hidden rounded-lg bg-violet-600 p-8 text-white">
+		<div className="relative overflow-hidden rounded-lg bg-primary p-8 text-primary-foreground">
 			{/* Grid Pattern */}
 			<div
 				className="absolute inset-0"
@@ -25,7 +25,7 @@ export function WelcomeHeader({ name, subtitle }: WelcomeHeaderProps) {
 				{/* Badge */}
 				<div className="mb-4 inline-flex items-center gap-2 rounded-md bg-white/15 px-3 py-1 text-sm font-medium">
 					<Sparkles className="h-3.5 w-3.5" />
-					<span>Dashboard</span>
+					<span>SysPrompt</span>
 				</div>
 
 				{/* Greeting */}
@@ -34,8 +34,8 @@ export function WelcomeHeader({ name, subtitle }: WelcomeHeaderProps) {
 				</h1>
 
 				{/* Subtitle */}
-				<p className="mt-2 text-white/80 max-w-lg">
-					{subtitle || "Here's what's happening with your tasks today."}
+				<p className="mt-2 text-primary-foreground/80 max-w-lg">
+					{subtitle || "Here's what's happening with your prompts today."}
 				</p>
 			</div>
 		</div>

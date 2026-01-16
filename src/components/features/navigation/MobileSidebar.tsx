@@ -51,7 +51,7 @@ export function MobileSidebar() {
 				<SheetHeader className="border-b px-4 py-3">
 					<SheetTitle className="flex items-center gap-2">
 						<Logo className="h-7 w-7" />
-						<span className="text-foreground">Project Zap</span>
+						<span className="text-foreground">SysPrompt</span>
 					</SheetTitle>
 				</SheetHeader>
 				<ScrollArea className="flex-1 px-3 py-4">

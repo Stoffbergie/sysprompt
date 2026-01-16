@@ -148,10 +148,10 @@ function DashboardSkeleton() {
 	return (
 		<div className="space-y-8">
 			{/* Welcome Skeleton */}
-			<div className="rounded-lg bg-violet-600 p-8">
-				<Skeleton className="h-6 w-24 mb-4 bg-white/20" />
-				<Skeleton className="h-10 w-72 bg-white/20" />
-				<Skeleton className="mt-2 h-5 w-96 bg-white/20" />
+			<div className="rounded-lg bg-primary p-8">
+				<Skeleton className="h-6 w-24 mb-4 bg-primary-foreground/20" />
+				<Skeleton className="h-10 w-72 bg-primary-foreground/20" />
+				<Skeleton className="mt-2 h-5 w-96 bg-primary-foreground/20" />
 			</div>
 
 			{/* Stats Skeleton */}

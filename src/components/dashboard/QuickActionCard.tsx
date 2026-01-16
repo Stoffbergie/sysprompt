@@ -25,7 +25,7 @@ export function QuickActionCard({
 		<div className="rounded-lg border bg-card p-6">
 			{/* Icon Badge */}
 			<div className="mb-4 inline-flex items-center justify-center rounded-md bg-muted p-2.5">
-				<Icon className="h-5 w-5 text-violet-600" />
+				<Icon className="h-5 w-5 text-primary" />
 			</div>
 
 			{/* Content */}

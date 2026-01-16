@@ -18,7 +18,7 @@ export function Hero() {
 						className="mb-6 inline-flex items-center gap-2 rounded-md border border-border bg-card px-3 py-1.5"
 					>
 						<span className="text-sm font-medium text-muted-foreground">
-							A Get Shit Done Starter
+							Express taste, not requirements
 						</span>
 					</motion.div>
 
@@ -29,8 +29,8 @@ export function Hero() {
 						transition={{ duration: 0.5, delay: 0.1 }}
 						className="mb-6 text-4xl font-bold tracking-tight text-foreground sm:text-5xl lg:text-6xl"
 					>
-						Stop Debugging Starters.{" "}
-						<span className="text-violet-600">Start Building.</span>
+						Prompt Engineering{" "}
+						<span className="text-primary">Through Discovery</span>
 					</motion.h1>
 
 					{/* Description */}
@@ -40,15 +40,9 @@ export function Hero() {
 						transition={{ duration: 0.5, delay: 0.2 }}
 						className="mb-10 text-lg text-muted-foreground leading-relaxed"
 					>
-						I got tired of starter repos with outdated commands, broken configs,
-						and tools that AI can't help with. So I built what actually works
-						for me, a modern stack with{" "}
-						<span className="font-semibold text-foreground">
-							TanStack Start
-						</span>
-						, <span className="font-semibold text-foreground">Convex</span>, and{" "}
-						<span className="font-semibold text-foreground">WorkOS</span>. Clone
-						it. Ship something real.
+						Stop writing specifications. Start expressing taste. SysPrompt transforms
+						prompt engineering from requirements gathering into an intuitive discovery
+						process. Give feedback, see improvement, ship better prompts.
 					</motion.p>
 
 					{/* CTA Buttons */}
@@ -61,9 +55,9 @@ export function Hero() {
 						<button
 							type="button"
 							onClick={() => signIn()}
-							className="inline-flex items-center gap-2 rounded-md bg-violet-600 hover:bg-violet-700 px-4 py-2 text-sm font-medium text-white transition-colors"
+							className="inline-flex items-center gap-2 rounded-md bg-primary hover:bg-primary/90 px-4 py-2 text-sm font-medium text-primary-foreground transition-colors"
 						>
-							Get Started
+							Start Building
 						</button>
 
 						<a
@@ -73,7 +67,7 @@ export function Hero() {
 							className="inline-flex items-center gap-2 rounded-md border border-border bg-card px-4 py-2 text-sm font-medium text-card-foreground hover:bg-accent transition-colors"
 						>
 							<Github className="h-4 w-4" />
-							View on GitHub
+							Learn More
 						</a>
 					</motion.div>
 				</div>
@@ -96,7 +90,7 @@ export function Hero() {
 								</div>
 								<div className="flex-1 flex justify-center">
 									<div className="flex items-center gap-2 rounded-md bg-card border border-border px-3 py-1 text-xs text-muted-foreground">
-										localhost:3000/dashboard
+										sysprompt.ai/flow
 									</div>
 								</div>
 							</div>
