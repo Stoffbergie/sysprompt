@@ -24,7 +24,6 @@ export const update = mutation({
 		compactMode: v.optional(v.boolean()),
 		emailNotifications: v.optional(v.boolean()),
 		pushNotifications: v.optional(v.boolean()),
-		todoReminders: v.optional(v.boolean()),
 		weeklyDigest: v.optional(v.boolean()),
 		mentions: v.optional(v.boolean()),
 		marketingEmails: v.optional(v.boolean()),

@@ -1,10 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import {
-	Component,
-	LayoutDashboard,
-	ListTodo,
-	MessageSquare,
-} from "lucide-react";
+import { LayoutDashboard } from "lucide-react";
 import { Logo } from "@/components/landing/Logo";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -23,21 +18,6 @@ const navItems = [
 		title: "Dashboard",
 		href: "/dashboard",
 		icon: LayoutDashboard,
-	},
-	{
-		title: "Prompts",
-		href: "/prompts",
-		icon: MessageSquare,
-	},
-	{
-		title: "Todos",
-		href: "/todos",
-		icon: ListTodo,
-	},
-	{
-		title: "Components",
-		href: "/components",
-		icon: Component,
 	},
 ];
 
@@ -69,7 +49,7 @@ export function Sidebar({ collapsed }: SidebarProps) {
 					)}
 				>
 					<Logo className="h-7 w-7" />
-					{!collapsed && <span className="text-foreground">SysPrompt</span>}
+					{!collapsed && <span className="text-foreground">Project Zap</span>}
 				</Link>
 			</div>
 

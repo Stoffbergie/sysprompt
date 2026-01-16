@@ -12,7 +12,7 @@ import {
 
 const routeLabels: Record<string, string> = {
 	dashboard: "Dashboard",
-	todos: "Todos",
+	flow: "Flow Mode",
 	settings: "Settings",
 	profile: "Profile",
 	appearance: "Appearance",

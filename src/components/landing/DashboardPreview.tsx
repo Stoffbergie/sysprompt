@@ -70,7 +70,7 @@ export function DashboardPreview() {
 					<div
 						className={`mt-1 text-xs ${
 							stat.changeType === "positive"
-								? "text-emerald-600"
+								? "text-foreground"
 								: "text-primary"
 						}`}
 					>

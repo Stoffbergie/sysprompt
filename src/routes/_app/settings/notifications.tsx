@@ -47,8 +47,6 @@ function NotificationSettingsPage() {
 		preferences?.emailNotifications ?? DEFAULT_PREFERENCES.emailNotifications;
 	const pushNotifications =
 		preferences?.pushNotifications ?? DEFAULT_PREFERENCES.pushNotifications;
-	const todoReminders =
-		preferences?.todoReminders ?? DEFAULT_PREFERENCES.todoReminders;
 	const weeklyDigest =
 		preferences?.weeklyDigest ?? DEFAULT_PREFERENCES.weeklyDigest;
 	const mentions = preferences?.mentions ?? DEFAULT_PREFERENCES.mentions;
@@ -127,20 +125,6 @@ function NotificationSettingsPage() {
 					</CardDescription>
 				</CardHeader>
 				<CardContent className="space-y-6">
-					<div className="flex items-center justify-between">
-						<div className="space-y-0.5">
-							<Label htmlFor="todo-reminders">Todo Reminders</Label>
-							<p className="text-xs text-muted-foreground">
-								Get reminded about upcoming and overdue todos
-							</p>
-						</div>
-						<Switch
-							id="todo-reminders"
-							checked={todoReminders}
-							onCheckedChange={(value) => handleToggle("todoReminders", value)}
-						/>
-					</div>
-					<Separator />
 					<div className="flex items-center justify-between">
 						<div className="space-y-0.5">
 							<Label htmlFor="weekly-digest">Weekly Digest</Label>

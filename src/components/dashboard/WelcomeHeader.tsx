@@ -11,33 +11,19 @@ export function WelcomeHeader({ name, subtitle }: WelcomeHeaderProps) {
 		hour < 12 ? "Good morning" : hour < 18 ? "Good afternoon" : "Good evening";
 
 	return (
-		<div className="relative overflow-hidden rounded-lg bg-primary p-8 text-primary-foreground">
-			{/* Grid Pattern */}
-			<div
-				className="absolute inset-0"
-				style={{
-					backgroundImage: `linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)`,
-					backgroundSize: "24px 24px",
-				}}
-			/>
-
-			<div className="relative">
-				{/* Badge */}
-				<div className="mb-4 inline-flex items-center gap-2 rounded-md bg-white/15 px-3 py-1 text-sm font-medium">
-					<Sparkles className="h-3.5 w-3.5" />
-					<span>SysPrompt</span>
-				</div>
-
-				{/* Greeting */}
-				<h1 className="text-3xl font-bold md:text-4xl">
-					{greeting}, {name}!
-				</h1>
-
-				{/* Subtitle */}
-				<p className="mt-2 text-primary-foreground/80 max-w-lg">
-					{subtitle || "Here's what's happening with your prompts today."}
-				</p>
+		<div className="rounded-lg border bg-card p-8">
+			<div className="mb-4 inline-flex items-center gap-2 rounded-md bg-muted px-3 py-1 text-sm font-medium text-muted-foreground">
+				<Sparkles className="h-3.5 w-3.5" />
+				<span>Dashboard</span>
 			</div>
+
+			<h1 className="text-3xl font-bold text-foreground md:text-4xl">
+				{greeting}, {name}!
+			</h1>
+
+			<p className="mt-2 text-muted-foreground max-w-lg">
+				{subtitle || "Here's what's happening with your tasks today."}
+			</p>
 		</div>
 	);
 }

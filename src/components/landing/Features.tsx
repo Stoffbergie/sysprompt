@@ -3,6 +3,7 @@ import {
 	Code2,
 	Database,
 	Layers,
+	Lock,
 	RefreshCw,
 	Rocket,
 	Shield,
@@ -12,41 +13,41 @@ import { useRef } from "react";
 
 const features = [
 	{
-		title: "Flow Mode",
+		title: "Real-Time Sync",
 		description:
-			"Express your taste through intuitive feedback. Approve, reject, or refine responses in a fluid discovery process that feels natural.",
+			"Changes sync instantly across all clients without polling or manual refresh. Build collaborative features effortlessly.",
 		icon: RefreshCw,
 		span: "md:col-span-2 md:row-span-2",
 		large: true,
 	},
 	{
-		title: "Pattern Detection",
-		description: "AI identifies recurring issues and suggests targeted improvements.",
-		icon: Layers,
+		title: "Enterprise Auth",
+		description: "WorkOS AuthKit with SSO, MFA, and user management built-in.",
+		icon: Lock,
 	},
 	{
-		title: "Test Cases",
+		title: "Type-Safe",
 		description:
-			"Approved responses become regression tests. Your prompts stay consistent.",
+			"End-to-end TypeScript from database to UI. Catch errors at compile time.",
 		icon: Shield,
 	},
 	{
-		title: "Better Prompts",
+		title: "2X Faster",
 		description:
-			"Transform vague requirements into precise, effective system prompts.",
+			"Skip the boilerplate. No REST APIs, no state management headaches.",
 		icon: Rocket,
-		stat: "10X",
+		stat: "2X",
 	},
 	{
-		title: "Production Ready",
+		title: "Modern Stack",
 		description:
-			"Deploy prompts with versioning, monitoring, and rollback capabilities.",
+			"TanStack Start with SSR, file-based routing, and server functions.",
 		icon: Database,
 	},
 	{
-		title: "Real-Time Insights",
+		title: "Developer Experience",
 		description:
-			"Monitor production performance and iterate based on actual user feedback.",
+			"Hot reload, TypeScript, ESLint, and Prettier configured out of the box.",
 		icon: Code2,
 	},
 ];
@@ -90,10 +91,10 @@ export function Features() {
 							FEATURES
 						</motion.span>
 						<h2 className="text-4xl font-bold text-foreground md:text-5xl">
-							Built for Discovery
+							Everything You Need
 						</h2>
 						<p className="mt-4 text-lg text-muted-foreground max-w-xl">
-							Everything you need to craft, test, and deploy production-ready prompts.
+							Start with a solid foundation and ship faster than ever before.
 						</p>
 					</motion.div>
 
@@ -103,7 +104,7 @@ export function Features() {
 						viewport={{ once: true }}
 						className="mt-6 md:mt-0"
 					>
-						<span className="inline-flex items-center gap-2 text-sm font-medium text-primary bg-primary/10 px-3 py-1.5 rounded-md">
+						<span className="inline-flex items-center gap-2 text-sm font-medium text-primary bg-muted px-3 py-1.5 rounded-md">
 							<Zap className="h-4 w-4" />6 Core Features
 						</span>
 					</motion.div>
@@ -123,7 +124,7 @@ export function Features() {
 							variants={item}
 							className={`relative rounded-lg overflow-hidden ${feature.span || ""} ${
 								feature.large
-									? "bg-primary p-8 text-white"
+									? "bg-primary p-8 text-primary-foreground"
 									: feature.stat
 										? "bg-muted p-6"
 										: "border border-border bg-card p-6"
@@ -135,10 +136,10 @@ export function Features() {
 									<div>
 										<div className="mb-6 inline-flex items-center gap-2 rounded-md bg-white/20 px-3 py-1.5">
 											<feature.icon className="h-4 w-4" />
-											<span className="text-sm font-medium">Flow Mode</span>
+											<span className="text-sm font-medium">Real-Time</span>
 										</div>
 										<h3 className="mb-4 text-2xl font-bold">
-											Discover Your Perfect Prompt
+											Instant Data Sync Across All Clients
 										</h3>
 										<p className="text-white/80 leading-relaxed">
 											{feature.description}
@@ -147,7 +148,7 @@ export function Features() {
 
 									<div className="mt-8 flex items-center gap-2">
 										<Zap className="h-5 w-5" />
-										<span className="font-medium">Intuitive feedback loop</span>
+										<span className="font-medium">Zero latency updates</span>
 									</div>
 								</div>
 							)}
@@ -171,7 +172,7 @@ export function Features() {
 							{!feature.large && !feature.stat && (
 								<>
 									<div className="mb-4 flex h-10 w-10 items-center justify-center rounded-md bg-muted">
-										<feature.icon className="h-5 w-5 text-primary" />
+										<feature.icon className="h-5 w-5 text-muted-foreground" />
 									</div>
 									<h3 className="mb-2 text-lg font-bold text-card-foreground">
 										{feature.title}

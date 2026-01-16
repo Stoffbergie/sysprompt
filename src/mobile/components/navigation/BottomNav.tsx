@@ -1,10 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import {
-	LayoutDashboard,
-	ListTodo,
-	MessageSquare,
-	Settings,
-} from "lucide-react";
+import { LayoutDashboard, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -12,16 +7,6 @@ const navItems = [
 		title: "Dashboard",
 		href: "/dashboard",
 		icon: LayoutDashboard,
-	},
-	{
-		title: "Prompts",
-		href: "/prompts",
-		icon: MessageSquare,
-	},
-	{
-		title: "Todos",
-		href: "/todos",
-		icon: ListTodo,
 	},
 	{
 		title: "Settings",

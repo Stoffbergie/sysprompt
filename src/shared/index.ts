@@ -1,4 +1,3 @@
-export type { Todo, TodoFilter } from "./hooks";
 export {
 	isMobileDevice,
 	useAppAuth,
@@ -8,8 +7,6 @@ export {
 	usePrompts,
 	useReviewQueue,
 	useStream,
-	useTodoMutations,
-	useTodos,
 	useTuning,
 } from "./hooks";
 export { cn } from "./lib";

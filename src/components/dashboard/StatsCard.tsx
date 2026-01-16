@@ -19,16 +19,16 @@ const variantStyles = {
 		iconColor: "text-muted-foreground",
 	},
 	primary: {
-		iconBg: "bg-primary/10",
-		iconColor: "text-primary",
+		iconBg: "bg-muted",
+		iconColor: "text-foreground",
 	},
 	success: {
-		iconBg: "bg-emerald-100 dark:bg-emerald-500/20",
-		iconColor: "text-emerald-600 dark:text-emerald-400",
+		iconBg: "bg-muted",
+		iconColor: "text-muted-foreground",
 	},
 	warning: {
-		iconBg: "bg-amber-100 dark:bg-amber-500/20",
-		iconColor: "text-amber-600 dark:text-amber-400",
+		iconBg: "bg-muted",
+		iconColor: "text-muted-foreground",
 	},
 };
 
@@ -44,7 +44,6 @@ export function StatsCard({
 
 	return (
 		<div className="rounded-lg border bg-card p-6">
-			{/* Header */}
 			<div className="flex items-center justify-between">
 				<p className="text-sm font-medium text-muted-foreground">{title}</p>
 				<div
@@ -57,20 +56,16 @@ export function StatsCard({
 				</div>
 			</div>
 
-			{/* Value */}
 			<div className="mt-3">
 				<p className="text-3xl font-bold tracking-tight">{value}</p>
 			</div>
 
-			{/* Footer */}
 			<div className="mt-1 flex items-center gap-2">
 				{trend && (
 					<span
 						className={cn(
 							"text-xs font-medium",
-							trend.positive
-								? "text-emerald-600 dark:text-emerald-400"
-								: "text-red-600 dark:text-red-400",
+							trend.positive ? "text-foreground" : "text-destructive",
 						)}
 					>
 						{trend.positive ? "+" : ""}

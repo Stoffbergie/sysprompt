@@ -84,7 +84,7 @@ export function ConfirmDialog({
 		variant === "destructive"
 			? "text-destructive"
 			: variant === "warning"
-				? "text-amber-500"
+				? "text-muted-foreground"
 				: "text-primary";
 
 	return (
@@ -96,7 +96,7 @@ export function ConfirmDialog({
 							className={cn(
 								"flex h-10 w-10 shrink-0 items-center justify-center rounded-full",
 								variant === "destructive" && "bg-destructive/10",
-								variant === "warning" && "bg-amber-500/10",
+								variant === "warning" && "bg-muted",
 								variant === "default" && "bg-primary/10",
 							)}
 						>

@@ -5,25 +5,30 @@ import { LogoBrand } from "./Logo";
 const footerLinks = {
 	product: [
 		{ label: "Features", href: "#features" },
-		{ label: "Flow Mode", href: "#demo" },
+		{ label: "Demo", href: "#demo" },
+		{ label: "Tech Stack", href: "#stack" },
 		{ label: "Pricing", href: "#" },
 	],
 	resources: [
 		{ label: "Documentation", href: "#" },
 		{ label: "Getting Started", href: "#" },
-		{ label: "API Reference", href: "#" },
+		{ label: "Examples", href: "#" },
 		{ label: "Changelog", href: "#" },
 	],
-	company: [
-		{ label: "About", href: "#" },
+	community: [
+		{ label: "GitHub", href: "https://github.com/Stoffberg/project-zap" },
+		{ label: "Discord", href: "#" },
+		{ label: "Twitter", href: "#" },
 		{ label: "Blog", href: "#" },
-		{ label: "Careers", href: "#" },
-		{ label: "Contact", href: "#" },
 	],
 };
 
 const socialLinks = [
-	{ icon: Github, href: "#", label: "GitHub" },
+	{
+		icon: Github,
+		href: "https://github.com/Stoffberg/project-zap",
+		label: "GitHub",
+	},
 	{ icon: Twitter, href: "#", label: "Twitter" },
 	{ icon: Mail, href: "#", label: "Email" },
 ];
@@ -42,8 +47,8 @@ export function Footer() {
 					>
 						<LogoBrand className="mb-6" />
 						<p className="text-muted-foreground max-w-xs leading-relaxed">
-							Transform prompt engineering from specification to discovery.
-							Express taste, not requirements.
+							Stop overthinking. Start building. A production-ready stack so you
+							can ship faster.
 						</p>
 
 						{/* Social Links */}
@@ -98,13 +103,30 @@ export function Footer() {
 					className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border pt-8 md:flex-row"
 				>
 					<p className="text-sm text-muted-foreground">
-						&copy; {new Date().getFullYear()} SysPrompt. All rights reserved.
+						&copy; {new Date().getFullYear()} Project Zap. All rights reserved.
 					</p>
 
 					<div className="flex items-center gap-1 text-sm text-muted-foreground">
 						<span>Made with</span>
 						<Heart className="h-4 w-4 text-red-500 fill-current" />
-						<span>for prompt engineers</span>
+						<span>using</span>
+						<a
+							href="https://tanstack.com/start"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-foreground hover:text-primary transition-colors"
+						>
+							TanStack
+						</a>
+						<span>+</span>
+						<a
+							href="https://convex.dev"
+							target="_blank"
+							rel="noopener noreferrer"
+							className="text-foreground hover:text-primary transition-colors"
+						>
+							Convex
+						</a>
 					</div>
 				</motion.div>
 			</div>
