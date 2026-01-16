@@ -7,6 +7,7 @@ import {
 	ArrowLeft,
 	Eye,
 	FileText,
+	Focus,
 	History,
 	Lightbulb,
 	Rocket,
@@ -18,8 +19,10 @@ import {
 	Trash2,
 	TrendingDown,
 	TrendingUp,
+	X,
 	Zap,
 } from "lucide-react";
+import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { FlowMode } from "@/components/features/flow-mode";
 import { PatternFixFlow } from "@/components/features/patterns";
@@ -49,6 +52,22 @@ interface TuningPageProps {
 
 export function TuningPage({ promptId }: TuningPageProps) {
 	const { prompt, isLoading } = usePrompt(promptId as Id<"prompts">);
+	const [zenMode, setZenMode] = useState(false);
+
+	const exitZenMode = useCallback(() => setZenMode(false), []);
+
+	useEffect(() => {
+		if (!zenMode) return;
+
+		const handleKeyDown = (e: KeyboardEvent) => {
+			if (e.key === "Escape") {
+				exitZenMode();
+			}
+		};
+
+		document.addEventListener("keydown", handleKeyDown);
+		return () => document.removeEventListener("keydown", handleKeyDown);
+	}, [zenMode, exitZenMode]);
 
 	if (isLoading) {
 		return <Loading />;
@@ -64,6 +83,34 @@ export function TuningPage({ promptId }: TuningPageProps) {
 						Back to Prompts
 					</Button>
 				</Link>
+			</div>
+		);
+	}
+
+	if (zenMode) {
+		return (
+			<div className="fixed inset-0 z-50 bg-background flex flex-col">
+				<div className="flex items-center justify-between p-3 border-b">
+					<div className="flex items-center gap-2">
+						<Focus className="h-4 w-4 text-muted-foreground" />
+						<span className="text-sm font-medium">Zen Mode</span>
+						<span className="text-xs text-muted-foreground">
+							{prompt.name}
+						</span>
+					</div>
+					<Button
+						variant="ghost"
+						size="sm"
+						onClick={exitZenMode}
+						className="gap-1"
+					>
+						<X className="h-4 w-4" />
+						<span className="text-xs">ESC</span>
+					</Button>
+				</div>
+				<div className="flex-1 min-h-0">
+					<FlowMode promptId={promptId as Id<"prompts">} />
+				</div>
 			</div>
 		);
 	}
@@ -84,14 +131,25 @@ export function TuningPage({ promptId }: TuningPageProps) {
 						</p>
 					</div>
 				</div>
-				{prompt.deploymentStatus === "deployed" ? (
-					<Badge variant="default" className="gap-1">
-						<Rocket className="h-3 w-3" />
-						Deployed
-					</Badge>
-				) : (
-					<DeployButton promptId={promptId as Id<"prompts">} />
-				)}
+				<div className="flex items-center gap-2">
+					<Button
+						variant="outline"
+						size="sm"
+						onClick={() => setZenMode(true)}
+						className="gap-2"
+					>
+						<Focus className="h-4 w-4" />
+						Zen Mode
+					</Button>
+					{prompt.deploymentStatus === "deployed" ? (
+						<Badge variant="default" className="gap-1">
+							<Rocket className="h-3 w-3" />
+							Deployed
+						</Badge>
+					) : (
+						<DeployButton promptId={promptId as Id<"prompts">} />
+					)}
+				</div>
 			</div>
 
 			<Tabs defaultValue="tune" className="flex-1 flex flex-col">
