@@ -1,12 +1,9 @@
 import type { Id } from "convex/_generated/dataModel";
-import { Bookmark } from "lucide-react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
-import { Button } from "@/components/ui";
 import { useReviewQueue, useStream, useTuning } from "@/shared";
 import { ComparisonView } from "./ComparisonView";
 import { FeedbackInput } from "./FeedbackInput";
-import { FlowControls } from "./FlowControls";
 import { QuestionInput } from "./QuestionInput";
 import { ResponseDisplay } from "./ResponseDisplay";
 import { ReviewQueueModal } from "./ReviewQueueModal";
@@ -259,17 +256,12 @@ export function FlowMode({ promptId }: FlowModeProps) {
 
 	return (
 		<div className="flex flex-col h-full">
-			<div className="flex justify-end p-2 border-b">
-				<Button variant="ghost" size="sm" onClick={handleCheckpoint}>
-					<Bookmark className="h-4 w-4 mr-1" />
-					Checkpoint
-				</Button>
-			</div>
-
-			<div className="flex-1 flex flex-col p-4 gap-4 overflow-auto">
+			<div className="flex-1 flex flex-col px-4 py-6 gap-6 overflow-auto">
 				{currentQuestion && flowState !== "comparison" && (
-					<div className="text-sm font-medium p-3 bg-primary/5 rounded-lg border border-primary/10">
-						{currentQuestion}
+					<div className="flex justify-end">
+						<div className="text-sm font-medium px-4 py-3 bg-muted rounded-xl max-w-[85%]">
+							{currentQuestion}
+						</div>
 					</div>
 				)}
 
@@ -296,16 +288,7 @@ export function FlowMode({ promptId }: FlowModeProps) {
 				)}
 			</div>
 
-			<div className="border-t p-4 space-y-4">
-				{flowState === "displaying" && (
-					<FlowControls
-						onShorter={handleShorter}
-						onLonger={handleLonger}
-						onThumbsDown={handleThumbsDown}
-						onSatisficed={handleSatisficed}
-					/>
-				)}
-
+			<div className="p-4">
 				<QuestionInput
 					onSubmit={handleQuestionSubmit}
 					disabled={flowState === "streaming" || flowState === "feedback"}
@@ -314,8 +297,14 @@ export function FlowMode({ promptId }: FlowModeProps) {
 							? "Type a question to start tuning..."
 							: flowState === "streaming"
 								? "Generating response..."
-								: "Type another question or use controls above..."
+								: "Type another question..."
 					}
+					onCheckpoint={handleCheckpoint}
+					showControls={flowState === "displaying"}
+					onShorter={handleShorter}
+					onLonger={handleLonger}
+					onThumbsDown={handleThumbsDown}
+					onSatisficed={handleSatisficed}
 				/>
 			</div>
 

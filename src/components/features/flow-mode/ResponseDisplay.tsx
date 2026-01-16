@@ -85,7 +85,6 @@ export function ResponseDisplay({
 			<div
 				className={cn(
 					"prose prose-sm dark:prose-invert max-w-none",
-					"p-4 rounded-lg bg-muted/30",
 					"select-text cursor-text",
 				)}
 				onMouseUp={isStreaming ? undefined : handleMouseUp}
