@@ -45,6 +45,8 @@ export default defineSchema({
 	prompts: defineTable({
 		userId: v.id("users"),
 		name: v.string(),
+		goal: v.string(),
+		context: v.string(),
 		currentVersionId: v.optional(v.id("promptVersions")),
 		deploymentStatus: deploymentStatusValidator,
 		trustLevel: trustLevelValidator,

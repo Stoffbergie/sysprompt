@@ -1,5 +1,6 @@
 import { v } from "convex/values";
-import { mutation, query } from "./_generated/server";
+import { internal } from "./_generated/api";
+import { internalAction, internalMutation, mutation, query } from "./_generated/server";
 import { requireAuth } from "./lib/auth";
 import {
 	deploymentStatusValidator,
@@ -14,6 +15,8 @@ export const list = query({
 			_creationTime: v.number(),
 			userId: v.id("users"),
 			name: v.string(),
+			goal: v.string(),
+			context: v.string(),
 			currentVersionId: v.optional(v.id("promptVersions")),
 			deploymentStatus: deploymentStatusValidator,
 			trustLevel: trustLevelValidator,
@@ -32,6 +35,8 @@ export const list = query({
 			_creationTime: p._creationTime,
 			userId: p.userId,
 			name: p.name,
+			goal: p.goal,
+			context: p.context,
 			currentVersionId: p.currentVersionId,
 			deploymentStatus: p.deploymentStatus,
 			trustLevel: p.trustLevel,
@@ -48,6 +53,8 @@ export const get = query({
 			_creationTime: v.number(),
 			userId: v.id("users"),
 			name: v.string(),
+			goal: v.string(),
+			context: v.string(),
 			currentVersionId: v.optional(v.id("promptVersions")),
 			deploymentStatus: deploymentStatusValidator,
 			trustLevel: trustLevelValidator,
@@ -65,6 +72,8 @@ export const get = query({
 			_creationTime: prompt._creationTime,
 			userId: prompt.userId,
 			name: prompt.name,
+			goal: prompt.goal,
+			context: prompt.context,
 			currentVersionId: prompt.currentVersionId,
 			deploymentStatus: prompt.deploymentStatus,
 			trustLevel: prompt.trustLevel,
@@ -75,7 +84,7 @@ export const get = query({
 });
 
 export const create = mutation({
-	args: { name: v.string() },
+	args: { name: v.string(), goal: v.string(), context: v.string() },
 	returns: v.id("prompts"),
 	handler: async (ctx, args) => {
 		const user = await requireAuth(ctx);
@@ -84,6 +93,8 @@ export const create = mutation({
 		const promptId = await ctx.db.insert("prompts", {
 			userId: user._id,
 			name: args.name,
+			goal: args.goal,
+			context: args.context,
 			deploymentStatus: "draft",
 			trustLevel: "suggest_fixes",
 			lastActivityAt: now,
@@ -101,6 +112,12 @@ export const create = mutation({
 
 		await ctx.db.insert("tuningSessions", {
 			promptId,
+		});
+
+		await ctx.scheduler.runAfter(0, internal.prompts.generateStarterPrompt, {
+			promptId,
+			goal: args.goal,
+			context: args.context,
 		});
 
 		return promptId;
@@ -281,6 +298,96 @@ export const updateTrustLevel = mutation({
 			trustLevel: args.trustLevel,
 			lastActivityAt: Date.now(),
 		});
+		return null;
+	},
+});
+
+export const updateStarterPrompt = internalMutation({
+	args: {
+		promptId: v.id("prompts"),
+		promptText: v.string(),
+	},
+	returns: v.null(),
+	handler: async (ctx, args) => {
+		const prompt = await ctx.db.get(args.promptId);
+		if (!prompt || !prompt.currentVersionId) return null;
+
+		await ctx.db.patch(prompt.currentVersionId, {
+			promptText: args.promptText,
+		});
+
+		await ctx.db.patch(args.promptId, {
+			lastActivityAt: Date.now(),
+		});
+
+		return null;
+	},
+});
+
+export const generateStarterPrompt = internalAction({
+	args: {
+		promptId: v.id("prompts"),
+		goal: v.string(),
+		context: v.string(),
+	},
+	returns: v.null(),
+	handler: async (ctx, args): Promise<null> => {
+		const apiKey = process.env.OPENAI_API_KEY;
+		if (!apiKey) {
+			console.error("OPENAI_API_KEY not configured");
+			return null;
+		}
+
+		const systemPrompt = `You are a system prompt expert. Given a goal and context, generate a well-structured system prompt that will guide an AI assistant to achieve that goal effectively.
+
+The prompt should:
+- Be clear and specific
+- Include relevant constraints based on the context
+- Define the assistant's role and tone
+- Provide guidance on response format if appropriate
+
+Output ONLY the system prompt text, nothing else.`;
+
+		const userMessage = `Goal: ${args.goal}
+
+Context: ${args.context}
+
+Generate a system prompt for an AI assistant that will help achieve this goal within this context.`;
+
+		const response = await fetch("https://api.openai.com/v1/chat/completions", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${apiKey}`,
+			},
+			body: JSON.stringify({
+				model: "gpt-4o-mini",
+				messages: [
+					{ role: "system", content: systemPrompt },
+					{ role: "user", content: userMessage },
+				],
+				temperature: 0.7,
+			}),
+		});
+
+		if (!response.ok) {
+			console.error("Failed to generate starter prompt:", response.statusText);
+			return null;
+		}
+
+		const data = await response.json();
+		const generatedPrompt = data.choices?.[0]?.message?.content;
+
+		if (!generatedPrompt) {
+			console.error("No content in LLM response");
+			return null;
+		}
+
+		await ctx.runMutation(internal.prompts.updateStarterPrompt, {
+			promptId: args.promptId,
+			promptText: generatedPrompt,
+		});
+
 		return null;
 	},
 });

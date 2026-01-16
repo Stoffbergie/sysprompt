@@ -22,28 +22,42 @@ import {
 	CardTitle,
 	Dialog,
 	DialogContent,
+	DialogDescription,
 	DialogFooter,
 	DialogHeader,
 	DialogTitle,
 	Input,
+	Label,
 	Loading,
+	Textarea,
 } from "@/components/ui";
 
 export function PromptsPage() {
 	const { prompts, isLoading, createPrompt } = usePrompts();
 	const [showCreateDialog, setShowCreateDialog] = useState(false);
 	const [newPromptName, setNewPromptName] = useState("");
+	const [newPromptGoal, setNewPromptGoal] = useState("");
+	const [newPromptContext, setNewPromptContext] = useState("");
 	const [isCreating, setIsCreating] = useState(false);
 
+	const canCreate =
+		newPromptName.trim() && newPromptGoal.trim() && newPromptContext.trim();
+
 	const handleCreate = async () => {
-		if (!newPromptName.trim()) return;
+		if (!canCreate) return;
 
 		setIsCreating(true);
 		try {
-			await createPrompt({ name: newPromptName.trim() });
+			await createPrompt({
+				name: newPromptName.trim(),
+				goal: newPromptGoal.trim(),
+				context: newPromptContext.trim(),
+			});
 			toast.success("Prompt created");
 			setShowCreateDialog(false);
 			setNewPromptName("");
+			setNewPromptGoal("");
+			setNewPromptContext("");
 		} catch (_error) {
 			toast.error("Failed to create prompt");
 		} finally {
@@ -143,18 +157,44 @@ export function PromptsPage() {
 			)}
 
 			<Dialog open={showCreateDialog} onOpenChange={setShowCreateDialog}>
-				<DialogContent>
+				<DialogContent className="sm:max-w-lg">
 					<DialogHeader>
 						<DialogTitle>Create New Prompt</DialogTitle>
+						<DialogDescription>
+							Provide a name, goal, and context to generate a starter prompt.
+						</DialogDescription>
 					</DialogHeader>
-					<div className="py-4">
-						<Input
-							placeholder="Enter prompt name..."
-							value={newPromptName}
-							onChange={(e) => setNewPromptName(e.target.value)}
-							onKeyDown={(e) => e.key === "Enter" && handleCreate()}
-							autoFocus
-						/>
+					<div className="space-y-4 py-4">
+						<div className="space-y-2">
+							<Label htmlFor="name">Name</Label>
+							<Input
+								id="name"
+								placeholder="e.g., Customer Support Bot"
+								value={newPromptName}
+								onChange={(e) => setNewPromptName(e.target.value)}
+								autoFocus
+							/>
+						</div>
+						<div className="space-y-2">
+							<Label htmlFor="goal">Goal</Label>
+							<Textarea
+								id="goal"
+								placeholder="What should this prompt help accomplish?"
+								value={newPromptGoal}
+								onChange={(e) => setNewPromptGoal(e.target.value)}
+								rows={2}
+							/>
+						</div>
+						<div className="space-y-2">
+							<Label htmlFor="context">Context</Label>
+							<Textarea
+								id="context"
+								placeholder="What's the context? (e.g., target audience, product, constraints)"
+								value={newPromptContext}
+								onChange={(e) => setNewPromptContext(e.target.value)}
+								rows={3}
+							/>
+						</div>
 					</div>
 					<DialogFooter>
 						<Button
@@ -164,10 +204,7 @@ export function PromptsPage() {
 						>
 							Cancel
 						</Button>
-						<Button
-							onClick={handleCreate}
-							disabled={!newPromptName.trim() || isCreating}
-						>
+						<Button onClick={handleCreate} disabled={!canCreate || isCreating}>
 							{isCreating ? "Creating..." : "Create"}
 						</Button>
 					</DialogFooter>
