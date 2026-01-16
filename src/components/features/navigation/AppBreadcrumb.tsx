@@ -17,7 +17,12 @@ const routeLabels: Record<string, string> = {
 	profile: "Profile",
 	appearance: "Appearance",
 	notifications: "Notifications",
+	prompts: "Prompts",
 };
+
+function capitalizeSegment(segment: string): string {
+	return segment.charAt(0).toUpperCase() + segment.slice(1).toLowerCase();
+}
 
 export function AppBreadcrumb() {
 	const location = useLocation();
@@ -26,7 +31,7 @@ export function AppBreadcrumb() {
 	// Build breadcrumb items
 	const breadcrumbs = pathSegments.map((segment, index) => {
 		const href = `/${pathSegments.slice(0, index + 1).join("/")}`;
-		const label = routeLabels[segment] || segment;
+		const label = routeLabels[segment] || capitalizeSegment(segment);
 		const isLast = index === pathSegments.length - 1;
 
 		return { href, label, isLast };

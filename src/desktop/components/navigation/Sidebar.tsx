@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { LayoutDashboard } from "lucide-react";
+import { FileText, LayoutDashboard, Settings } from "lucide-react";
 import { Logo } from "@/components/landing/Logo";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
@@ -18,6 +18,16 @@ const navItems = [
 		title: "Dashboard",
 		href: "/dashboard",
 		icon: LayoutDashboard,
+	},
+	{
+		title: "Prompts",
+		href: "/prompts",
+		icon: FileText,
+	},
+	{
+		title: "Settings",
+		href: "/settings",
+		icon: Settings,
 	},
 ];
 
@@ -57,7 +67,10 @@ export function Sidebar({ collapsed }: SidebarProps) {
 			<ScrollArea className="flex-1 px-3 py-4">
 				<nav className="flex flex-col gap-1">
 					{navItems.map((item) => {
-						const isActive = location.pathname === item.href;
+						const isActive =
+							location.pathname === item.href ||
+							(item.href !== "/dashboard" &&
+								location.pathname.startsWith(item.href));
 						const Icon = item.icon;
 
 						if (collapsed) {

@@ -33,7 +33,7 @@ import {
 	CardDescription,
 	CardHeader,
 	CardTitle,
-	Skeleton,
+	Loading,
 	Slider,
 	Switch,
 	Tabs,
@@ -51,16 +51,7 @@ export function TuningPage({ promptId }: TuningPageProps) {
 	const { prompt, isLoading } = usePrompt(promptId as Id<"prompts">);
 
 	if (isLoading) {
-		return (
-			<div className="flex flex-col h-full">
-				<div className="border-b p-4">
-					<Skeleton className="h-8 w-48" />
-				</div>
-				<div className="flex-1 p-4">
-					<Skeleton className="h-full" />
-				</div>
-			</div>
-		);
+		return <Loading />;
 	}
 
 	if (!prompt) {
@@ -242,7 +233,7 @@ function RulesView({ promptId }: { promptId: Id<"prompts"> }) {
 	const deleteSoftPreference = useMutation(api.rules.deleteSoftPreference);
 
 	if (hardRules === undefined || softPreferences === undefined) {
-		return <Skeleton className="h-48" />;
+		return <Loading />;
 	}
 
 	const hasNoRules = hardRules.length === 0 && softPreferences.length === 0;
@@ -511,7 +502,7 @@ function PromptSettings({ promptId }: { promptId: Id<"prompts"> }) {
 	const updateTrustLevel = useMutation(api.prompts.updateTrustLevel);
 
 	if (!prompt) {
-		return <Skeleton className="h-48" />;
+		return <Loading />;
 	}
 
 	const handleTrustLevelChange = async (trustLevel: TrustLevel) => {

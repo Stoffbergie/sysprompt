@@ -17,7 +17,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Loading } from "@/components/ui/spinner";
 import { useAppAuth } from "@/shared";
 import { api } from "../../../../convex/_generated/api";
 
@@ -53,7 +53,7 @@ function ProfileSettingsPage() {
 	}
 
 	if (user === undefined) {
-		return <ProfileSettingsSkeleton />;
+		return <Loading />;
 	}
 
 	const initials = user?.name
@@ -215,33 +215,3 @@ function ProfileSettingsPage() {
 	);
 }
 
-function ProfileSettingsSkeleton() {
-	return (
-		<div className="space-y-6">
-			<Card>
-				<CardHeader>
-					<Skeleton className="h-6 w-24" />
-					<Skeleton className="h-4 w-64" />
-				</CardHeader>
-				<CardContent className="space-y-6">
-					<div className="flex items-center gap-4">
-						<Skeleton className="h-20 w-20 rounded-full" />
-						<div className="space-y-2">
-							<Skeleton className="h-4 w-32" />
-							<Skeleton className="h-3 w-48" />
-						</div>
-					</div>
-					<Separator />
-					<div className="space-y-2">
-						<Skeleton className="h-4 w-24" />
-						<Skeleton className="h-10 w-full" />
-					</div>
-					<div className="space-y-2">
-						<Skeleton className="h-4 w-16" />
-						<Skeleton className="h-10 w-full" />
-					</div>
-				</CardContent>
-			</Card>
-		</div>
-	);
-}

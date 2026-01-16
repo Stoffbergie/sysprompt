@@ -1,5 +1,5 @@
 import { Link, useLocation } from "@tanstack/react-router";
-import { LayoutDashboard, Settings } from "lucide-react";
+import { FileText, LayoutDashboard, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -7,6 +7,11 @@ const navItems = [
 		title: "Dashboard",
 		href: "/dashboard",
 		icon: LayoutDashboard,
+	},
+	{
+		title: "Prompts",
+		href: "/prompts",
+		icon: FileText,
 	},
 	{
 		title: "Settings",

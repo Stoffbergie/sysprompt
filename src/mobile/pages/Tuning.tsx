@@ -20,12 +20,12 @@ import { TestRunner } from "@/components/features/test-runner";
 import {
 	Badge,
 	Button,
+	Loading,
 	Sheet,
 	SheetContent,
 	SheetDescription,
 	SheetHeader,
 	SheetTitle,
-	Skeleton,
 	Tabs,
 	TabsContent,
 	TabsList,
@@ -90,17 +90,7 @@ export function TuningPage({ promptId }: TuningPageProps) {
 	};
 
 	if (isLoading) {
-		return (
-			<div className="flex flex-col h-full">
-				<div className="border-b p-4 flex items-center gap-3">
-					<Skeleton className="h-8 w-8" />
-					<Skeleton className="h-6 w-32" />
-				</div>
-				<div className="flex-1 p-4">
-					<Skeleton className="h-full" />
-				</div>
-			</div>
-		);
+		return <Loading />;
 	}
 
 	if (!prompt) {

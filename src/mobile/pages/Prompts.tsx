@@ -23,7 +23,7 @@ import {
 	DialogHeader,
 	DialogTitle,
 	Input,
-	Skeleton,
+	Loading,
 } from "@/components/ui";
 
 export function PromptsPage() {
@@ -74,14 +74,7 @@ export function PromptsPage() {
 	};
 
 	if (isLoading) {
-		return (
-			<div className="p-4 space-y-4">
-				<Skeleton className="h-8 w-32" />
-				{[1, 2, 3].map((i) => (
-					<Skeleton key={i} className="h-20" />
-				))}
-			</div>
-		);
+		return <Loading />;
 	}
 
 	return (

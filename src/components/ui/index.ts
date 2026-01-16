@@ -162,6 +162,7 @@ export {
 	SheetTrigger,
 } from "./sheet";
 export { Skeleton } from "./skeleton";
+export { Loading, Spinner } from "./spinner";
 export { Slider } from "./slider";
 export { Switch } from "./switch";
 export { Tabs, TabsContent, TabsList, TabsTrigger } from "./tabs";

@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Loading } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { cn } from "@/lib/utils";
 import { api } from "../../../../convex/_generated/api";
@@ -42,9 +42,8 @@ function AppearanceSettingsPage() {
 		}
 	});
 
-	// Loading state
 	if (preferences === undefined) {
-		return <AppearanceSettingsSkeleton />;
+		return <Loading />;
 	}
 
 	// Merge defaults with stored preferences
@@ -220,48 +219,6 @@ function AppearanceSettingsPage() {
 							onCheckedChange={(value) => handleToggle("compactMode", value)}
 						/>
 					</div>
-				</CardContent>
-			</Card>
-		</div>
-	);
-}
-
-function AppearanceSettingsSkeleton() {
-	return (
-		<div className="space-y-6">
-			<Card>
-				<CardHeader>
-					<Skeleton className="h-6 w-20" />
-					<Skeleton className="h-4 w-64" />
-				</CardHeader>
-				<CardContent>
-					<div className="grid gap-4 sm:grid-cols-3">
-						{[1, 2, 3].map((i) => (
-							<div key={i} className="rounded-xl border-2 border-muted p-4">
-								<Skeleton className="h-16 w-full rounded-lg" />
-								<div className="mt-3 flex justify-center">
-									<Skeleton className="h-5 w-16" />
-								</div>
-							</div>
-						))}
-					</div>
-				</CardContent>
-			</Card>
-			<Card>
-				<CardHeader>
-					<Skeleton className="h-6 w-28" />
-					<Skeleton className="h-4 w-72" />
-				</CardHeader>
-				<CardContent className="space-y-6">
-					{[1, 2].map((i) => (
-						<div key={i} className="flex items-center justify-between">
-							<div className="space-y-2">
-								<Skeleton className="h-4 w-32" />
-								<Skeleton className="h-3 w-48" />
-							</div>
-							<Skeleton className="h-6 w-11 rounded-full" />
-						</div>
-					))}
 				</CardContent>
 			</Card>
 		</div>

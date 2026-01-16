@@ -1,14 +1,14 @@
 import { Settings, Sparkles, Zap } from "lucide-react";
 import { QuickActionCard, WelcomeHeader } from "@/components/dashboard";
 import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Loading } from "@/components/ui/spinner";
 import { useCurrentUser } from "@/shared";
 
 export function DashboardPage() {
 	const user = useCurrentUser();
 
 	if (user === undefined) {
-		return <DashboardSkeleton />;
+		return <Loading />;
 	}
 
 	const firstName =
@@ -63,28 +63,3 @@ export function DashboardPage() {
 	);
 }
 
-function DashboardSkeleton() {
-	return (
-		<div className="space-y-8">
-			<div className="rounded-lg border bg-card p-8">
-				<Skeleton className="h-6 w-24 mb-4" />
-				<Skeleton className="h-10 w-72" />
-				<Skeleton className="mt-2 h-5 w-96" />
-			</div>
-
-			<div>
-				<Skeleton className="h-6 w-32 mb-4" />
-				<div className="grid gap-4 md:grid-cols-2">
-					{[1, 2].map((i) => (
-						<div key={i} className="rounded-lg border bg-card p-6">
-							<Skeleton className="h-10 w-10 rounded-md mb-4" />
-							<Skeleton className="h-6 w-32 mb-2" />
-							<Skeleton className="h-4 w-full mb-4" />
-							<Skeleton className="h-10 w-28" />
-						</div>
-					))}
-				</div>
-			</div>
-		</div>
-	);
-}

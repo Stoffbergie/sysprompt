@@ -1,13 +1,13 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, Settings, Sparkles, Zap } from "lucide-react";
-import { Skeleton } from "@/components/ui/skeleton";
+import { Loading } from "@/components/ui/spinner";
 import { useCurrentUser } from "@/shared";
 
 export function DashboardPage() {
 	const user = useCurrentUser();
 
 	if (user === undefined) {
-		return <DashboardSkeleton />;
+		return <Loading />;
 	}
 
 	const firstName =
@@ -70,21 +70,3 @@ export function DashboardPage() {
 	);
 }
 
-function DashboardSkeleton() {
-	return (
-		<div className="flex flex-col">
-			<div className="border-b bg-card px-4 py-6">
-				<Skeleton className="h-4 w-24" />
-				<Skeleton className="mt-2 h-8 w-32" />
-				<Skeleton className="mt-2 h-4 w-48" />
-			</div>
-			<div className="px-4 pb-4 pt-4">
-				<Skeleton className="mb-3 h-4 w-28" />
-				<div className="space-y-2">
-					<Skeleton className="h-20 rounded-lg" />
-					<Skeleton className="h-20 rounded-lg" />
-				</div>
-			</div>
-		</div>
-	);
-}
