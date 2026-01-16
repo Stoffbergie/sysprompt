@@ -45,12 +45,12 @@ export function Sidebar({ collapsed }: SidebarProps) {
 	return (
 		<aside
 			className={cn(
-				"flex h-screen flex-col border-r bg-card transition-all duration-300",
+				"flex h-screen flex-col bg-card transition-all duration-300",
 				collapsed ? "w-16" : "w-64",
 			)}
 		>
 			{/* Header */}
-			<div className="flex h-14 items-center border-b px-3">
+			<div className="flex h-14 items-center px-3">
 				<Link
 					to="/dashboard"
 					className={cn(

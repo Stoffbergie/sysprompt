@@ -90,19 +90,12 @@ export function TuningPage({ promptId }: TuningPageProps) {
 	if (zenMode) {
 		return (
 			<div className="fixed inset-0 z-50 bg-background flex flex-col">
-				<div className="flex items-center justify-between p-3 border-b">
-					<div className="flex items-center gap-2">
-						<Focus className="h-4 w-4 text-muted-foreground" />
-						<span className="text-sm font-medium">Zen Mode</span>
-						<span className="text-xs text-muted-foreground">
-							{prompt.name}
-						</span>
-					</div>
+				<div className="absolute top-3 right-3 z-10">
 					<Button
 						variant="ghost"
 						size="sm"
 						onClick={exitZenMode}
-						className="gap-1"
+						className="gap-1 text-muted-foreground hover:text-foreground"
 					>
 						<X className="h-4 w-4" />
 						<span className="text-xs">ESC</span>
@@ -117,7 +110,7 @@ export function TuningPage({ promptId }: TuningPageProps) {
 
 	return (
 		<div className="flex flex-col h-full">
-			<div className="border-b p-4 flex items-center justify-between">
+			<div className="p-4 flex items-center justify-between">
 				<div className="flex items-center gap-4">
 					<Link to="/prompts">
 						<Button variant="ghost" size="icon">
@@ -133,10 +126,10 @@ export function TuningPage({ promptId }: TuningPageProps) {
 				</div>
 				<div className="flex items-center gap-2">
 					<Button
-						variant="outline"
+						variant="ghost"
 						size="sm"
 						onClick={() => setZenMode(true)}
-						className="gap-2"
+						className="gap-2 text-muted-foreground hover:text-foreground"
 					>
 						<Focus className="h-4 w-4" />
 						Zen Mode
@@ -153,8 +146,8 @@ export function TuningPage({ promptId }: TuningPageProps) {
 			</div>
 
 			<Tabs defaultValue="tune" className="flex-1 flex flex-col">
-				<div className="border-b px-4">
-					<TabsList className="h-12">
+				<div className="px-4">
+					<TabsList className="h-10">
 						<TabsTrigger value="tune" className="gap-2">
 							<Settings className="h-4 w-4" />
 							Tune

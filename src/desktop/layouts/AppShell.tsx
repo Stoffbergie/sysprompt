@@ -33,7 +33,7 @@ export function AppShell({ children }: AppShellProps) {
 				{/* Main Content */}
 				<div className="flex flex-1 flex-col overflow-hidden">
 					{/* Header */}
-					<header className="flex h-14 items-center gap-2 border-b border-border bg-background px-4 lg:px-6">
+					<header className="flex h-14 items-center gap-2 bg-background px-4 lg:px-6">
 						<MobileSidebar />
 
 						<Button
@@ -49,8 +49,6 @@ export function AppShell({ children }: AppShellProps) {
 							)}
 							<span className="sr-only">Toggle sidebar</span>
 						</Button>
-
-						<div className="hidden md:block mx-2 h-6 w-px bg-border" />
 
 						<div className="ml-2 flex-1">
 							<AppBreadcrumb />
