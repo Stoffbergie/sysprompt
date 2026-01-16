@@ -1,0 +1,188 @@
+import { TanStackDevtools } from "@tanstack/react-devtools";
+import {
+	createRootRoute,
+	HeadContent,
+	Link,
+	Outlet,
+	Scripts,
+} from "@tanstack/react-router";
+import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
+import { AuthKitProvider } from "@workos/authkit-tanstack-react-start/client";
+import { NuqsAdapter } from "nuqs/adapters/tanstack-router";
+import { ThemeProvider } from "../components/providers/ThemeProvider";
+import ConvexProvider from "../integrations/convex/provider";
+
+import appCss from "../styles.css?url";
+
+// Script to prevent flash of wrong theme, set theme-color, and register service worker
+const themeScript = `
+  (function() {
+    // Theme setup
+    const stored = localStorage.getItem('zap-theme');
+    const theme = stored === 'dark' ? 'dark'
+      : stored === 'system' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+      : 'light';
+    document.documentElement.classList.add(theme);
+
+    // Set theme-color meta tag for browser chrome
+    const themeColor = theme === 'dark' ? '#0a0a0a' : '#ffffff';
+    let meta = document.querySelector('meta[name="theme-color"]');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.name = 'theme-color';
+      document.head.appendChild(meta);
+    }
+    meta.content = themeColor;
+
+    // Register service worker for PWA
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js').catch(function(err) {
+          console.log('ServiceWorker registration failed:', err);
+        });
+      });
+    }
+  })();
+`;
+
+export const Route = createRootRoute({
+	head: () => ({
+		meta: [
+			{
+				charSet: "utf-8",
+			},
+			{
+				name: "viewport",
+				content: "width=device-width, initial-scale=1, viewport-fit=cover",
+			},
+			{
+				title: "Project Zap",
+			},
+			{
+				name: "description",
+				content: "Modern task management with real-time sync",
+			},
+			// PWA meta tags
+			{
+				name: "apple-mobile-web-app-capable",
+				content: "yes",
+			},
+			{
+				name: "apple-mobile-web-app-status-bar-style",
+				content: "black-translucent",
+			},
+			{
+				name: "apple-mobile-web-app-title",
+				content: "Zap",
+			},
+			{
+				name: "mobile-web-app-capable",
+				content: "yes",
+			},
+			{
+				name: "format-detection",
+				content: "telephone=no",
+			},
+		],
+		links: [
+			{
+				rel: "stylesheet",
+				href: appCss,
+			},
+			{
+				rel: "icon",
+				type: "image/svg+xml",
+				href: "/favicon.svg",
+			},
+			{
+				rel: "icon",
+				type: "image/x-icon",
+				href: "/favicon.ico",
+			},
+			{
+				rel: "apple-touch-icon",
+				href: "/logo192.png",
+			},
+			{
+				rel: "apple-touch-icon",
+				sizes: "192x192",
+				href: "/logo192.png",
+			},
+			{
+				rel: "apple-touch-icon",
+				sizes: "512x512",
+				href: "/logo512.png",
+			},
+			{
+				rel: "manifest",
+				href: "/manifest.json",
+			},
+		],
+	}),
+
+	// Shell is always server-rendered for HTML structure
+	shellComponent: RootShell,
+	// Component and children are client-rendered
+	ssr: false,
+	component: RootComponent,
+	notFoundComponent: NotFoundPage,
+});
+
+// Shell is always server-rendered (HTML structure)
+function RootShell({ children }: { children: React.ReactNode }) {
+	return (
+		<html lang="en" suppressHydrationWarning>
+			<head>
+				<HeadContent />
+				<script dangerouslySetInnerHTML={{ __html: themeScript }} />
+			</head>
+			<body className="h-screen overflow-hidden bg-background text-foreground antialiased">
+				{children}
+				<Scripts />
+			</body>
+		</html>
+	);
+}
+
+// Root component is client-rendered (ssr: false)
+function RootComponent() {
+	return (
+		<ThemeProvider>
+			<AuthKitProvider>
+				<ConvexProvider>
+					<NuqsAdapter>
+						<Outlet />
+					</NuqsAdapter>
+					<TanStackDevtools
+						config={{
+							position: "bottom-right",
+						}}
+						plugins={[
+							{
+								name: "Tanstack Router",
+								render: <TanStackRouterDevtoolsPanel />,
+							},
+						]}
+					/>
+				</ConvexProvider>
+			</AuthKitProvider>
+		</ThemeProvider>
+	);
+}
+
+function NotFoundPage() {
+	return (
+		<ThemeProvider>
+			<div className="flex min-h-screen flex-col items-center justify-center bg-background">
+				<h1 className="mb-4 text-6xl font-bold">404</h1>
+				<p className="mb-8 text-xl text-muted-foreground">Page not found</p>
+				<Link
+					to="/"
+					className="rounded-md bg-primary px-4 py-2 text-primary-foreground transition-colors hover:bg-primary/90"
+				>
+					Go home
+				</Link>
+			</div>
+		</ThemeProvider>
+	);
+}

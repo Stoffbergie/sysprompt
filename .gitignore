@@ -1,0 +1,29 @@
+# Dependencies
+node_modules
+
+# Build outputs
+dist
+dist-ssr
+.nitro
+.tanstack
+.wrangler
+.output
+.vinxi
+
+# Environment
+*.local
+.env
+
+# Lock files (we use bun)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Misc
+.DS_Store
+count.txt
+todos.json
+convex/_generated/
+src/routeTree.gen.ts
+.vercel
+.env*.local
