@@ -1,5 +1,5 @@
 import type { Id } from "convex/_generated/dataModel";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { useReviewQueue, useStream, useTuning } from "@/shared";
 import { ComparisonView } from "./ComparisonView";
@@ -35,17 +35,15 @@ export function FlowMode({ promptId }: FlowModeProps) {
 
 	const streamBody = useStream(streamUrl, shouldDriveStream, streamId);
 
-	useEffect(() => {
-		if (streamBody.status === "done" && flowState === "streaming") {
-			setFinalResponse(streamBody.text);
-			setFlowState("displaying");
-			setStreamId(undefined);
-		} else if (streamBody.status === "error" && flowState === "streaming") {
-			toast.error("Failed to generate response");
-			setFlowState("idle");
-			setStreamId(undefined);
-		}
-	}, [streamBody.status, streamBody.text, flowState]);
+	if (streamBody.status === "done" && flowState === "streaming") {
+		setFinalResponse(streamBody.text);
+		setFlowState("displaying");
+		setStreamId(undefined);
+	} else if (streamBody.status === "error" && flowState === "streaming") {
+		toast.error("Failed to generate response");
+		setFlowState("idle");
+		setStreamId(undefined);
+	}
 
 	const currentResponse = flowState === "streaming" ? streamBody.text : finalResponse;
 
@@ -64,11 +62,14 @@ export function FlowMode({ promptId }: FlowModeProps) {
 		resolve: resolveReviewItem,
 	} = useReviewQueue(promptId);
 
-	useEffect(() => {
-		if (shouldShowModal && pendingItems && pendingItems.length > 0) {
-			setShowReviewModal(true);
-		}
-	}, [shouldShowModal, pendingItems]);
+	if (
+		shouldShowModal &&
+		pendingItems &&
+		pendingItems.length > 0 &&
+		!showReviewModal
+	) {
+		setShowReviewModal(true);
+	}
 
 	const handleQuestionSubmit = useCallback(
 		async (question: string) => {

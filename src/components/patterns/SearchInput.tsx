@@ -214,6 +214,7 @@ export function SearchWithResults<T>({
 							<div
 								key={index}
 								role="option"
+								aria-selected="false"
 								tabIndex={0}
 								className="cursor-pointer rounded-sm px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground"
 								onClick={() => handleSelect(result)}

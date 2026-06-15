@@ -173,16 +173,18 @@ export function ServerDataTable<TData, TValue>({
 		return results.slice(start, end);
 	}, [results, pagination.pageIndex, pagination.pageSize]);
 
-	// Update stable data when we have new results
-	React.useEffect(() => {
-		if (pageData.length > 0) {
-			setStableData(pageData);
-			setIsSearching(false);
-		} else if (status !== "LoadingFirstPage" && status !== "LoadingMore") {
-			setStableData([]);
-			setIsSearching(false);
-		}
-	}, [pageData, status]);
+	if (pageData.length > 0 && stableData !== pageData) {
+		setStableData(pageData);
+		setIsSearching(false);
+	} else if (
+		pageData.length === 0 &&
+		status !== "LoadingFirstPage" &&
+		status !== "LoadingMore" &&
+		(stableData.length > 0 || isSearching)
+	) {
+		setStableData([]);
+		setIsSearching(false);
+	}
 
 	// Calculate page count
 	const pageCount = React.useMemo(() => {
