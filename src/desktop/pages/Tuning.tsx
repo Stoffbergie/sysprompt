@@ -548,6 +548,36 @@ const TRUST_LEVELS: {
 	},
 ];
 
+function ApiConfigurationCard({ apiKey }: { apiKey: string }) {
+	return (
+		<Card>
+			<CardHeader>
+				<CardTitle className="text-base">API Configuration</CardTitle>
+				<CardDescription>
+					Use this API key to send requests to your deployed prompt
+				</CardDescription>
+			</CardHeader>
+			<CardContent>
+				<div className="flex items-center gap-2">
+					<code className="flex-1 p-2 bg-muted rounded text-sm font-mono truncate">
+						{apiKey}
+					</code>
+					<Button
+						variant="outline"
+						size="sm"
+						onClick={() => {
+							navigator.clipboard.writeText(apiKey);
+							toast.success("API key copied");
+						}}
+					>
+						Copy
+					</Button>
+				</div>
+			</CardContent>
+		</Card>
+	);
+}
+
 function PromptSettings({ promptId }: { promptId: Id<"prompts"> }) {
 	const { prompt } = usePrompt(promptId);
 	const updateTrustLevel = useMutation(api.prompts.updateTrustLevel);
@@ -622,31 +652,7 @@ function PromptSettings({ promptId }: { promptId: Id<"prompts"> }) {
 			</Card>
 
 			{prompt.deploymentStatus === "deployed" && prompt.apiKey && (
-				<Card>
-					<CardHeader>
-						<CardTitle className="text-base">API Configuration</CardTitle>
-						<CardDescription>
-							Use this API key to send requests to your deployed prompt
-						</CardDescription>
-					</CardHeader>
-					<CardContent>
-						<div className="flex items-center gap-2">
-							<code className="flex-1 p-2 bg-muted rounded text-sm font-mono truncate">
-								{prompt.apiKey}
-							</code>
-							<Button
-								variant="outline"
-								size="sm"
-								onClick={() => {
-									navigator.clipboard.writeText(prompt.apiKey);
-									toast.success("API key copied");
-								}}
-							>
-								Copy
-							</Button>
-						</div>
-					</CardContent>
-				</Card>
+				<ApiConfigurationCard apiKey={prompt.apiKey} />
 			)}
 		</div>
 	);
