@@ -157,12 +157,13 @@ function PatternCard({ pattern, onSelect, compact }: PatternCardProps) {
 
 	if (compact) {
 		return (
-			<div
+			<button
+				type="button"
 				onClick={onSelect}
-				className="p-3 border rounded-lg cursor-pointer hover:border-primary/50 opacity-60"
+				className="w-full text-left p-3 border rounded-lg cursor-pointer hover:border-primary/50 opacity-60"
 			>
 				<p className="text-sm">{pattern.description}</p>
-			</div>
+			</button>
 		);
 	}
 

@@ -638,7 +638,7 @@ function PromptSettings({ promptId }: { promptId: Id<"prompts"> }) {
 								variant="outline"
 								size="sm"
 								onClick={() => {
-									navigator.clipboard.writeText(prompt.apiKey!);
+									navigator.clipboard.writeText(prompt.apiKey);
 									toast.success("API key copied");
 								}}
 							>

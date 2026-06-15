@@ -5,6 +5,7 @@ import {
 	mutation,
 	query,
 } from "./_generated/server";
+import type { Doc } from "./_generated/dataModel";
 import { requireAuth } from "./lib/auth";
 import { notificationTypeValidator } from "./lib/validators";
 
@@ -27,7 +28,7 @@ export const list = query({
 	handler: async (ctx, args) => {
 		const user = await requireAuth(ctx);
 
-		let notifications;
+		let notifications: Doc<"notifications">[];
 		if (args.unreadOnly) {
 			notifications = await ctx.db
 				.query("notifications")
