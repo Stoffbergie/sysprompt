@@ -27,7 +27,7 @@
     ]
   },
   "dependencies": {
-    "@ai-sdk/openai": "^3.0.12",
+    "@ai-sdk/openai": "^4.0.11",
     "@convex-dev/react-query": "0.1.0",
     "@hookform/resolvers": "^5.2.2",
     "@openrouter/ai-sdk-provider": "^1.5.4",
